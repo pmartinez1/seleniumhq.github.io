@@ -10,7 +10,7 @@ def test_alert_popup():
     driver = webdriver.Chrome()
     driver.get(url)
     element = driver.find_element(By.LINK_TEXT, "See an example alert")
-    element.click()
+    driver.execute_script("arguments[0].click();", element)
 
     wait = WebDriverWait(driver, timeout=2)
     alert = wait.until(lambda d : d.switch_to.alert)

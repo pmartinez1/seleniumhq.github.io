@@ -38,7 +38,7 @@ def test_find_by_link_text():
     driver = webdriver.Chrome()
     driver.get("https://www.selenium.dev/")
 
-    driver.find_element(By.LINK_TEXT, "Documentation")
+    driver.find_element(By.LINK_TEXT, "MORE NEWS")
 
     driver.quit()
 
