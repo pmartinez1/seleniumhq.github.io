@@ -18,14 +18,12 @@ def test_evaluating_shadow_DOM():
     driver.implicitly_wait(5)
     driver.get('https://www.selenium.dev/selenium/web/shadowRootPage.html')
 
-    # div_el = driver.find_element(By.TAG_NAME, 'body')
     custom_element = driver.find_element(By.TAG_NAME, 'custom-checkbox-element')
+    shadow_dom_input = custom_element.shadow_root.find_element(By.CSS_SELECTOR, 'input[type=checkbox]')
+
     assert custom_element.is_displayed()
-    print(custom_element.shadow_root)
     assert custom_element.shadow_root
-    div_children = custom_element.shadow_root.find_element(By.CSS_SELECTOR, 'input[type=checkbox]')
-    print(div_children)
-    assert div_children.is_displayed()
+    assert shadow_dom_input.is_displayed()
 
     driver.quit()
 
@@ -59,11 +57,8 @@ def test_find_elements_from_element():
     main_element = driver.find_element(By.TAG_NAME, 'main')
     svg_elements = main_element.find_elements(By.TAG_NAME, 'svg')
 
-    assert len(svg_elements) > 1
-
     for svg_element in svg_elements:
         print(svg_element.is_displayed())
-
 
     ## get elements from parent element using XPATH
     ## NOTE: in order to utilize XPATH from current element, you must add "." to beginning of path
@@ -74,10 +69,12 @@ def test_find_elements_from_element():
 
     # get children of tag 'ul' with tag 'li'
     elements  = ul_tag.find_elements(By.XPATH, './/li')
-    assert len(elements) > 0
 
     for element in elements:
         print(element.text)
+    
+    assert len(elements) > 0
+    assert len(svg_elements) > 1
 
     driver.quit()
 
